@@ -1,5 +1,6 @@
 import { UserService } from './user.service';
-import { Controller, Get, Param } from '@nestjs/common';
+import { UserDto } from './user-dto';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -8,5 +9,11 @@ export class UserController {
   @Get(':userName')
   getHelloUser(@Param('userName') userName: string): string {
     return this.userService.getHelloUser(userName);
+  }
+
+  @Post('/submit')
+  @HttpCode(200)
+  submitHelloUser(@Body() userDto: UserDto): string {
+    return this.userService.submitHelloUser(userDto);
   }
 }
